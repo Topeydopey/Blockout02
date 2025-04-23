@@ -30,6 +30,6 @@ public class IntelProp : MonoBehaviour
             FolderUnlockManager.Instance.MarkAsUnlocked(unlocksFolderID);
         }
 
-        gameObject.SetActive(false);
+        gameObject.SetActive(true);
     }
 }
