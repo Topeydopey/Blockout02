@@ -30,19 +30,6 @@ public class PlayerController3D : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (IntelUI.IsUIOpen)
-        {
-            LockCursor(false);
-            return;
-        }
-
-        HandleMovement();
-        HandleLook();
-        LockCursor(true); // Always lock when not in UI
-    }
-
     void HandleMovement()
     {
         float x = Input.GetAxis("Horizontal");

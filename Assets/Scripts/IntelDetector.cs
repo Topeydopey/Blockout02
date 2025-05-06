@@ -1,48 +1,36 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class IntelDetector : MonoBehaviour
 {
-    public Transform detector;            // Optional visual model
-    public AudioSource beepSound;         // Looping beep sound
-    public float detectionRange = 10f;
+    public float interactRange = 3f;
+    public KeyCode interactKey = KeyCode.E;
     public LayerMask intelLayer;
+    public Text intelCounterText;
 
-    [HideInInspector] public float proximityStrength = 0f; // Optional UI use
+    private int intelCount = 0;
 
     void Update()
     {
-        Collider[] intelNearby = Physics.OverlapSphere(transform.position, detectionRange, intelLayer);
-
-        float closestDistance = detectionRange;
-        bool found = false;
-
-        foreach (Collider intel in intelNearby)
+        if (Input.GetKeyDown(interactKey))
         {
-            IntelProp prop = intel.GetComponent<IntelProp>();
-            if (prop != null && prop.intelType == IntelProp.IntelType.Paper)
+            Ray ray = new Ray(transform.position, transform.forward);
+            if (Physics.Raycast(ray, out RaycastHit hit, interactRange, intelLayer))
             {
-                float distance = Vector3.Distance(transform.position, intel.transform.position);
-                if (distance < closestDistance)
+                IntelProp intel = hit.collider.GetComponent<IntelProp>();
+                if (intel != null)
                 {
-                    closestDistance = distance;
-                    found = true;
+                    intelCount++;
+                    UpdateUI();
+                    Destroy(hit.collider.gameObject);
+                    // Optional: Play sound or feedback
                 }
             }
         }
+    }
 
-        if (found)
-        {
-            proximityStrength = 1f - Mathf.Clamp01(closestDistance / detectionRange);
-            beepSound.pitch = Mathf.Lerp(0.4f, 1f, proximityStrength);
-            beepSound.volume = Mathf.Lerp(0.2f, 1f, proximityStrength);
-
-            if (!beepSound.isPlaying)
-                beepSound.Play();
-        }
-        else
-        {
-            proximityStrength = 0f;
-            beepSound.Stop();
-        }
+    void UpdateUI()
+    {
+        intelCounterText.text = "Intel Collected: " + intelCount;
     }
 }
