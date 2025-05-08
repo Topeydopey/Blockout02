@@ -7,7 +7,9 @@ public class NPCInterrogator : MonoBehaviour
     public float interactRange = 3f;
     public KeyCode interactKey = KeyCode.E;
     public TextMeshProUGUI talkPromptText;
-    public TextMeshProUGUI dialogueText;
+
+    [Header("Dialogue")]
+    public TypewriterDialogue typewriter;
 
     private DesignerNPC currentTarget;
 
@@ -22,14 +24,21 @@ public class NPCInterrogator : MonoBehaviour
             {
                 currentTarget = npc;
 
-                if (!talkPromptText.gameObject.activeSelf)
+                if (!talkPromptText.gameObject.activeSelf && !typewriter.IsTyping())
                     talkPromptText.gameObject.SetActive(true);
 
                 if (Input.GetKeyDown(interactKey))
                 {
-                    string response = npc.GetRandomResponse();
-                    dialogueText.text = response;
-                    talkPromptText.gameObject.SetActive(false); // Hide after talking
+                    if (typewriter.IsTyping())
+                    {
+                        typewriter.SkipToEnd(); // Skip to full line
+                    }
+                    else
+                    {
+                        string response = npc.GetRandomResponse();
+                        typewriter.ShowText(response);
+                        talkPromptText.gameObject.SetActive(false); // Hide prompt during typing
+                    }
                 }
 
                 return;
@@ -38,7 +47,8 @@ public class NPCInterrogator : MonoBehaviour
 
         // Nothing hit
         currentTarget = null;
-        if (talkPromptText.gameObject.activeSelf)
+
+        if (!typewriter.IsTyping() && talkPromptText.gameObject.activeSelf)
             talkPromptText.gameObject.SetActive(false);
     }
 }
