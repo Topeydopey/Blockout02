@@ -41,7 +41,12 @@ public class Shotgun : MonoBehaviour
                 {
                     Vector3 hitPoint = hit.point;
                     SpawnBlood(npc, hitPoint);
-                    Destroy(hit.collider.gameObject); // Remove NPC
+
+                    // Hide dialogue if that NPC was talking
+                    FindObjectOfType<TypewriterDialogue>()?.HideNow();
+
+                    ScoreManager.Instance.RegisterKill(npc.isAlien);
+                    Destroy(hit.collider.gameObject);
                 }
             }
         }

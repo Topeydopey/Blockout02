@@ -11,6 +11,7 @@ public class TypewriterDialogue : MonoBehaviour
     public AudioClip typeSound;
 
     private Coroutine typingCoroutine;
+    private Coroutine fadeCoroutine;
     private bool isTyping = false;
     private string currentText;
 
@@ -18,12 +19,12 @@ public class TypewriterDialogue : MonoBehaviour
     {
         if (isTyping)
         {
-            // Skip to full reveal
             StopCoroutine(typingCoroutine);
-            dialogueText.text = currentText;
             isTyping = false;
-            return;
         }
+
+        if (fadeCoroutine != null)
+            StopCoroutine(fadeCoroutine);
 
         currentText = newText;
         typingCoroutine = StartCoroutine(TypeText(newText));
@@ -34,11 +35,8 @@ public class TypewriterDialogue : MonoBehaviour
         isTyping = true;
         dialogueText.text = "";
 
-        // 🔊 Play type sound once at the start
         if (typeSound != null && audioSource != null)
-        {
             audioSource.PlayOneShot(typeSound);
-        }
 
         foreach (char c in text)
         {
@@ -62,5 +60,38 @@ public class TypewriterDialogue : MonoBehaviour
             dialogueText.text = currentText;
             isTyping = false;
         }
+    }
+
+    public void HideNow()
+    {
+        if (isTyping)
+        {
+            StopCoroutine(typingCoroutine);
+            isTyping = false;
+        }
+
+        if (fadeCoroutine != null)
+            StopCoroutine(fadeCoroutine);
+
+        fadeCoroutine = StartCoroutine(FadeOut());
+    }
+
+    private IEnumerator FadeOut()
+    {
+        float fadeDuration = 0.5f;
+        float elapsed = 0f;
+
+        Color originalColor = dialogueText.color;
+
+        while (elapsed < fadeDuration)
+        {
+            float alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
+            dialogueText.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        dialogueText.text = "";
+        dialogueText.color = originalColor;
     }
 }

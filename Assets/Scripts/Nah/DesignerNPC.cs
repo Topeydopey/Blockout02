@@ -1,22 +1,47 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DesignerNPC : MonoBehaviour
 {
+    public bool isAlien;
+
     [TextArea(2, 4)]
     public string[] humanResponses;
     [TextArea(2, 4)]
     public string[] alienResponses;
 
-    public bool isAlien = false; // Set this manually or randomize later
+    private Queue<string> responseQueue = new Queue<string>();
+    private string lastLine = "";
 
-    public string GetRandomResponse()
+    private void Start()
     {
-        if (isAlien && alienResponses.Length > 0)
-            return alienResponses[Random.Range(0, alienResponses.Length)];
+        ResetResponseQueue(); // initialize at spawn
+    }
 
-        if (!isAlien && humanResponses.Length > 0)
-            return humanResponses[Random.Range(0, humanResponses.Length)];
+    public string GetNextResponse()
+    {
+        if (responseQueue.Count == 0)
+        {
+            ResetResponseQueue(); // refill if we've used all
+        }
 
-        return "Uh... I forgot what I was saying.";
+        lastLine = responseQueue.Dequeue();
+        return lastLine;
+    }
+
+    private void ResetResponseQueue()
+    {
+        string[] source = isAlien ? alienResponses : humanResponses;
+
+        // Shuffle the array before enqueuing
+        List<string> shuffled = new List<string>(source);
+        for (int i = 0; i < shuffled.Count; i++)
+        {
+            int rand = Random.Range(i, shuffled.Count);
+            (shuffled[i], shuffled[rand]) = (shuffled[rand], shuffled[i]);
+        }
+
+        foreach (var line in shuffled)
+            responseQueue.Enqueue(line);
     }
 }

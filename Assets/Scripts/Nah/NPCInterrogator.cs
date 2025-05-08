@@ -35,7 +35,7 @@ public class NPCInterrogator : MonoBehaviour
                     }
                     else
                     {
-                        string response = npc.GetRandomResponse();
+                        string response = npc.GetNextResponse();
                         typewriter.ShowText(response);
                         talkPromptText.gameObject.SetActive(false); // Hide prompt during typing
                     }
