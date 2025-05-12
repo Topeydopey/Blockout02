@@ -6,6 +6,8 @@ public class TypewriterDialogue : MonoBehaviour
 {
     public TextMeshProUGUI dialogueText;
     public float charDelay = 0.03f;
+    public float fadeDelay = 3f;
+    public float fadeDuration = 0.5f;
 
     public AudioSource audioSource;
     public AudioClip typeSound;
@@ -17,23 +19,33 @@ public class TypewriterDialogue : MonoBehaviour
 
     public void ShowText(string newText)
     {
-        if (isTyping)
+        // Cancel any ongoing effects
+        if (typingCoroutine != null)
         {
             StopCoroutine(typingCoroutine);
-            isTyping = false;
+            typingCoroutine = null;
         }
 
         if (fadeCoroutine != null)
+        {
             StopCoroutine(fadeCoroutine);
+            fadeCoroutine = null;
+        }
+
+        // Reset full opacity
+        Color color = dialogueText.color;
+        color.a = 1f;
+        dialogueText.color = color;
 
         currentText = newText;
+        dialogueText.text = "";
+
         typingCoroutine = StartCoroutine(TypeText(newText));
     }
 
     private IEnumerator TypeText(string text)
     {
         isTyping = true;
-        dialogueText.text = "";
 
         if (typeSound != null && audioSource != null)
             audioSource.PlayOneShot(typeSound);
@@ -45,6 +57,14 @@ public class TypewriterDialogue : MonoBehaviour
         }
 
         isTyping = false;
+        typingCoroutine = null;
+
+        // Wait before fading
+        yield return new WaitForSeconds(fadeDelay);
+
+        // Only fade if no new typing has started
+        if (!isTyping && fadeCoroutine == null)
+            fadeCoroutine = StartCoroutine(FadeOut());
     }
 
     public bool IsTyping()
@@ -57,41 +77,53 @@ public class TypewriterDialogue : MonoBehaviour
         if (isTyping)
         {
             StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
+
             dialogueText.text = currentText;
             isTyping = false;
+
+            // Reset alpha just in case
+            Color color = dialogueText.color;
+            color.a = 1f;
+            dialogueText.color = color;
         }
     }
 
     public void HideNow()
     {
-        if (isTyping)
+        // Cancel typing and any ongoing fade
+        if (typingCoroutine != null)
         {
             StopCoroutine(typingCoroutine);
-            isTyping = false;
+            typingCoroutine = null;
         }
 
+        isTyping = false;
+
         if (fadeCoroutine != null)
+        {
             StopCoroutine(fadeCoroutine);
+            fadeCoroutine = null;
+        }
 
         fadeCoroutine = StartCoroutine(FadeOut());
     }
 
     private IEnumerator FadeOut()
     {
-        float fadeDuration = 0.5f;
         float elapsed = 0f;
-
-        Color originalColor = dialogueText.color;
+        Color startColor = dialogueText.color;
 
         while (elapsed < fadeDuration)
         {
             float alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
-            dialogueText.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+            dialogueText.color = new Color(startColor.r, startColor.g, startColor.b, alpha);
             elapsed += Time.deltaTime;
             yield return null;
         }
 
         dialogueText.text = "";
-        dialogueText.color = originalColor;
+        dialogueText.color = new Color(startColor.r, startColor.g, startColor.b, 1f); // reset for next time
+        fadeCoroutine = null;
     }
 }

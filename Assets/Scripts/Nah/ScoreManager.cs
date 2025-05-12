@@ -15,6 +15,12 @@ public class ScoreManager : MonoBehaviour
     public GameObject winScreen;
     public GameObject loseScreen;
 
+    public void SetTotalAliens(int count)
+    {
+        totalAliens = count;
+        UpdateScoreUI();
+    }
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -23,12 +29,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
-        totalAliens = FindObjectsOfType<DesignerNPC>().Length; // Count at start
-        foreach (var npc in FindObjectsOfType<DesignerNPC>())
-        {
-            if (!npc.isAlien) totalAliens--;
-        }
-
+        // Do not calculate totalAliens here anymore
         UpdateScoreUI();
     }
 
@@ -63,6 +64,10 @@ public class ScoreManager : MonoBehaviour
     {
         if (win && winScreen != null) winScreen.SetActive(true);
         if (!win && loseScreen != null) loseScreen.SetActive(true);
+
+        // Unlock and show the cursor
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
 
         Time.timeScale = 0f; // Freeze game
     }

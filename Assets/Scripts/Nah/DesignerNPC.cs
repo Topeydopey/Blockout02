@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DesignerNPC : MonoBehaviour
@@ -10,38 +9,20 @@ public class DesignerNPC : MonoBehaviour
     [TextArea(2, 4)]
     public string[] alienResponses;
 
-    private Queue<string> responseQueue = new Queue<string>();
-    private string lastLine = "";
+    private string chosenLine;
 
-    private void Start()
-    {
-        ResetResponseQueue(); // initialize at spawn
-    }
-
-    public string GetNextResponse()
-    {
-        if (responseQueue.Count == 0)
-        {
-            ResetResponseQueue(); // refill if we've used all
-        }
-
-        lastLine = responseQueue.Dequeue();
-        return lastLine;
-    }
-
-    private void ResetResponseQueue()
+    void Start()
     {
         string[] source = isAlien ? alienResponses : humanResponses;
 
-        // Shuffle the array before enqueuing
-        List<string> shuffled = new List<string>(source);
-        for (int i = 0; i < shuffled.Count; i++)
-        {
-            int rand = Random.Range(i, shuffled.Count);
-            (shuffled[i], shuffled[rand]) = (shuffled[rand], shuffled[i]);
-        }
+        if (source.Length > 0)
+            chosenLine = source[Random.Range(0, source.Length)];
+        else
+            chosenLine = "…";
+    }
 
-        foreach (var line in shuffled)
-            responseQueue.Enqueue(line);
+    public string GetResponse()
+    {
+        return chosenLine;
     }
 }
