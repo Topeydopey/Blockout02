@@ -11,12 +11,16 @@ public class Shotgun : MonoBehaviour
     public GameObject redBloodEffect;
     public GameObject greenBloodEffect;
 
-    //public GameObject redBloodPoolPrefab;
-    //public GameObject greenBloodPoolPrefab;
-
     public AudioSource shotgunAudio;
 
+    private CameraShake cameraShake;
     private float lastFireTime;
+
+    void Start()
+    {
+        // Get the camera shake component from main camera
+        cameraShake = GetComponent<CameraShake>();
+    }
 
     void Update()
     {
@@ -33,6 +37,10 @@ public class Shotgun : MonoBehaviour
         if (shotgunAudio != null)
             shotgunAudio.Play();
 
+        // Trigger camera shake
+        if (cameraShake != null)
+            cameraShake.Shake(0.15f, 0.1f); // duration, magnitude
+
         // Fire multiple raycasts
         for (int i = 0; i < pelletCount; i++)
         {
@@ -44,11 +52,8 @@ public class Shotgun : MonoBehaviour
                 {
                     Vector3 hitPoint = hit.point;
                     SpawnBlood(npc, hitPoint);
-                    //                   SpawnBloodPool(npc, hit.collider.transform.position);
 
-                    // Hide dialogue if that NPC was talking
                     FindObjectOfType<TypewriterDialogue>()?.HideNow();
-
                     ScoreManager.Instance.RegisterKill(npc.isAlien);
                     Destroy(hit.collider.gameObject);
                 }
@@ -73,28 +78,4 @@ public class Shotgun : MonoBehaviour
 
         Destroy(blood, 2f);
     }
-    /*
-        void SpawnBloodPool(DesignerNPC npc, Vector3 basePosition)
-        {
-            Debug.Log($"Attempting to spawn blood pool for {(npc.isAlien ? "alien" : "human")}");
-
-            Vector3 rayStart = basePosition + Vector3.up * 0.5f;
-            if (Physics.Raycast(rayStart, Vector3.down, out RaycastHit groundHit, 2f))
-            {
-                Debug.Log("Raycast hit at " + groundHit.point);
-
-                Vector3 spawnPos = groundHit.point + Vector3.up * 0.01f;
-                Quaternion rotation = Quaternion.Euler(90f, Random.Range(0f, 360f), 0f);
-
-                GameObject poolPrefab = npc.isAlien ? greenBloodPoolPrefab : redBloodPoolPrefab;
-
-                GameObject spawned = Instantiate(poolPrefab, spawnPos, rotation);
-                Debug.Log("Spawned blood pool at " + spawnPos);
-            }
-            else
-            {
-                Debug.LogWarning("Blood pool raycast did not hit anything.");
-            }
-        }
-        */
 }

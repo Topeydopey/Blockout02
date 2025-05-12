@@ -14,7 +14,7 @@ namespace RealtimeCSG
 	[InitializeOnLoad]
 	internal sealed class UpdateLoop
 	{
-		[MenuItem("Edit/Realtime-CSG/Turn Realtime-CSG on or off %F3", false, 30)]
+		[MenuItem("Edit/Realtime-CSG/Turn Realtime-CSG on or off #F3", false, 30)]
 		static void ToggleRealtimeCSG()
 		{
 			RealtimeCSG.CSGSettings.SetRealtimeCSGEnabled(!RealtimeCSG.CSGSettings.EnableRealtimeCSG);
@@ -46,35 +46,35 @@ namespace RealtimeCSG
 			CSGKeysPreferenceWindow.ReadKeys();
 
 			initialized = true;
-			
-			CSGSceneManagerRedirector.Interface = new CSGSceneManagerInstance();
-			
-			Selection.selectionChanged					-= OnSelectionChanged;
-			Selection.selectionChanged					+= OnSelectionChanged;
 
-			EditorApplication.update					-= OnFirstUpdate;
-			EditorApplication.update					+= OnFirstUpdate;
+			CSGSceneManagerRedirector.Interface = new CSGSceneManagerInstance();
+
+			Selection.selectionChanged -= OnSelectionChanged;
+			Selection.selectionChanged += OnSelectionChanged;
+
+			EditorApplication.update -= OnFirstUpdate;
+			EditorApplication.update += OnFirstUpdate;
 
 #if UNITY_2018_1_OR_NEWER
 			EditorApplication.hierarchyChanged	-= OnHierarchyWindowChanged;
             EditorApplication.hierarchyChanged += OnHierarchyWindowChanged;
 
 #else
-			EditorApplication.hierarchyWindowChanged	-= OnHierarchyWindowChanged;
-			EditorApplication.hierarchyWindowChanged	+= OnHierarchyWindowChanged;
+			EditorApplication.hierarchyWindowChanged -= OnHierarchyWindowChanged;
+			EditorApplication.hierarchyWindowChanged += OnHierarchyWindowChanged;
 #endif
 
 #if UNITY_2021_2_OR_NEWER // SceneManagement.PrefabStage was moved out of experimental in 2021.2
             UnityEditor.SceneManagement.PrefabStage.prefabSaving += OnPrefabSaving;
 #else
-    #if UNITY_2018_3_OR_NEWER // SceneManagement.PrefabStage was introduced in 2018.3 with nested prefabs
+#if UNITY_2018_3_OR_NEWER // SceneManagement.PrefabStage was introduced in 2018.3 with nested prefabs
             UnityEditor.Experimental.SceneManagement.PrefabStage.prefabSaving += OnPrefabSaving;
-    #endif
+#endif
 #endif
 
-            EditorApplication.hierarchyWindowItemOnGUI	-= HierarchyWindowItemGUI.OnHierarchyWindowItemOnGUI;
-			EditorApplication.hierarchyWindowItemOnGUI	+= HierarchyWindowItemGUI.OnHierarchyWindowItemOnGUI;
-			
+			EditorApplication.hierarchyWindowItemOnGUI -= HierarchyWindowItemGUI.OnHierarchyWindowItemOnGUI;
+			EditorApplication.hierarchyWindowItemOnGUI += HierarchyWindowItemGUI.OnHierarchyWindowItemOnGUI;
+
 			UnityCompilerDefineManager.UpdateUnityDefines();
 		}
 
@@ -86,7 +86,7 @@ namespace RealtimeCSG
 #endif
 
 
-        void Shutdown(bool finalizing = false)
+		void Shutdown(bool finalizing = false)
 		{
 			if (editor != this)
 				return;
@@ -96,21 +96,21 @@ namespace RealtimeCSG
 			if (!initialized)
 				return;
 
-			EditorApplication.update					-= OnFirstUpdate;
+			EditorApplication.update -= OnFirstUpdate;
 
 #if UNITY_2018_1_OR_NEWER
 			EditorApplication.hierarchyChanged	-= OnHierarchyWindowChanged;
 #else
-			EditorApplication.hierarchyWindowChanged	-= OnHierarchyWindowChanged;
+			EditorApplication.hierarchyWindowChanged -= OnHierarchyWindowChanged;
 #endif
-			EditorApplication.hierarchyWindowItemOnGUI	-= HierarchyWindowItemGUI.OnHierarchyWindowItemOnGUI;
+			EditorApplication.hierarchyWindowItemOnGUI -= HierarchyWindowItemGUI.OnHierarchyWindowItemOnGUI;
 
 #if UNITY_2019_1_OR_NEWER
 			SceneView.duringSceneGui					-= SceneViewEventHandler.OnScene;
 #else
-			SceneView.onSceneGUIDelegate				-= SceneViewEventHandler.OnScene;
+			SceneView.onSceneGUIDelegate -= SceneViewEventHandler.OnScene;
 #endif
-			Undo.undoRedoPerformed						-= UndoRedoPerformed;
+			Undo.undoRedoPerformed -= UndoRedoPerformed;
 
 			initialized = false;
 
@@ -148,7 +148,7 @@ namespace RealtimeCSG
 
 			if (this.initialized)
 				this.Shutdown();
-			
+
 			MeshInstanceManager.Shutdown();
 			InternalCSGModelManager.Shutdown();
 
@@ -171,7 +171,7 @@ namespace RealtimeCSG
 
 			SceneDragToolManager.UpdateDragAndDrop();
 			InternalCSGModelManager.UpdateHierarchy();
-		}  
+		}
 
 		void UndoRedoPerformed()
 		{
@@ -184,18 +184,18 @@ namespace RealtimeCSG
 			had_first_update = true;
 			EditorApplication.update -= OnFirstUpdate;
 			RealtimeCSG.CSGSettings.Reload();
-			
+
 			// register unity methods in the c++ code so that some unity functions
 			// (such as debug.log) can be called from within the c++ code.
 			NativeMethodBindings.RegisterUnityMethods();
 
 			// register dll methods so we can use them
 			NativeMethodBindings.RegisterExternalMethods();
-			
+
 			RunOnce();
 			//CreateSceneChangeDetector();
 		}
-		
+
 		void RunOnce()
 		{
 			if (EditorApplication.isPlayingOrWillChangePlaymode)
@@ -213,14 +213,14 @@ namespace RealtimeCSG
 			SceneView.duringSceneGui		-= SceneViewEventHandler.OnScene;
 			SceneView.duringSceneGui		+= SceneViewEventHandler.OnScene;
 #else
-			SceneView.onSceneGUIDelegate	-= SceneViewEventHandler.OnScene;
-			SceneView.onSceneGUIDelegate	+= SceneViewEventHandler.OnScene;
+			SceneView.onSceneGUIDelegate -= SceneViewEventHandler.OnScene;
+			SceneView.onSceneGUIDelegate += SceneViewEventHandler.OnScene;
 #endif
-            Undo.undoRedoPerformed			-= UndoRedoPerformed;
-			Undo.undoRedoPerformed			+= UndoRedoPerformed;
-			
-//			InternalCSGModelManager.UpdateHierarchy();
-			
+			Undo.undoRedoPerformed -= UndoRedoPerformed;
+			Undo.undoRedoPerformed += UndoRedoPerformed;
+
+			//			InternalCSGModelManager.UpdateHierarchy();
+
 			// but .. why?
 			/*
 			var scene = SceneManager.GetActiveScene();	
@@ -244,11 +244,11 @@ namespace RealtimeCSG
 			{
 				EditorApplication.update -= OnWaitUntillStoppedPlaying;
 
-				EditorApplication.update -= OnFirstUpdate;	
+				EditorApplication.update -= OnFirstUpdate;
 				EditorApplication.update += OnFirstUpdate;
 			}
 		}
-		
+
 		static void RunEditorUpdate()
 		{
 			//if (!RealtimeCSG.CSGSettings.EnableRealtimeCSG)
@@ -258,7 +258,7 @@ namespace RealtimeCSG
 				return;
 
 			UpdateLoop.UpdateOnSceneChange();
-		
+
 			try
 			{
 				if (!ColorSettings.isInitialized)
