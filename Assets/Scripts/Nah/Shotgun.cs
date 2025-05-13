@@ -39,7 +39,7 @@ public class Shotgun : MonoBehaviour
 
         // Trigger camera shake
         if (cameraShake != null)
-            cameraShake.Shake(0.15f, 0.1f); // duration, magnitude
+            cameraShake.Shake(); // uses inspector values
 
         // Fire multiple raycasts
         for (int i = 0; i < pelletCount; i++)
