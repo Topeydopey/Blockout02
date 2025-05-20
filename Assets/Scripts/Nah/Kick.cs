@@ -47,27 +47,37 @@ public class Kick : MonoBehaviour
             DesignerNPC npc = hit.collider.GetComponent<DesignerNPC>();
             if (npc != null)
             {
+                // ─── Ragdoll & force ─────────────────────────────────────────────
                 Rigidbody rb = npc.GetComponent<Rigidbody>();
-                UnityEngine.AI.NavMeshAgent agent = npc.GetComponent<UnityEngine.AI.NavMeshAgent>();
+                var agent = npc.GetComponent<UnityEngine.AI.NavMeshAgent>();
 
-                if (agent != null)
-                    agent.enabled = false;
+                if (agent) agent.enabled = false;
 
-                if (rb != null)
+                if (rb)
                 {
-                    // Enable ragdoll mode
                     rb.isKinematic = false;
                     rb.useGravity = true;
 
-                    // Kick them
-                    Vector3 direction = (hit.point - transform.position).normalized;
-                    rb.AddForce(direction * kickForce, ForceMode.Impulse);
-                    // Recover after 3 seconds
+                    Vector3 dir = (hit.point - transform.position).normalized;
+                    rb.AddForce(dir * kickForce, ForceMode.Impulse);
+
                     npc.RecoverAfterDelay(3f);
                 }
 
-                // OPTIONAL: enable them to knock over others on contact
+                // make knocked NPC knock down others
                 npc.gameObject.AddComponent<KickImpactTrigger>();
+
+                // ───---  EFFECTS  ---─────────────────────────────────────────────
+                // 1. sound
+                if (kickSound) kickSound.Play();
+
+                // 2. particle at impact point
+                if (kickEffect)
+                {
+                    Vector3 spawnPos = hit.point + Vector3.up * 0.20f;   // lift a bit off floor
+                    Instantiate(kickEffect, spawnPos, Quaternion.identity)
+                        .Play();                                         // make sure it starts
+                }
             }
         }
     }

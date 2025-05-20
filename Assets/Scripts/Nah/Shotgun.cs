@@ -2,24 +2,24 @@ using UnityEngine;
 
 public class Shotgun : MonoBehaviour
 {
+    [Header("Ballistics")]
     public float range = 10f;
     public float spreadAngle = 10f;
     public int pelletCount = 8;
     public float fireCooldown = 1f;
     public KeyCode fireKey = KeyCode.Mouse0;
 
+    [Header("Effects")]
     public GameObject redBloodEffect;
     public GameObject greenBloodEffect;
-
     public AudioSource shotgunAudio;
-
     private CameraShake cameraShake;
-    private float lastFireTime;
+
+    float lastFireTime;
 
     void Start()
     {
-        // Get the camera shake component from main camera
-        cameraShake = GetComponent<CameraShake>();
+        cameraShake = GetComponent<CameraShake>();   // assumes CameraShake is on the same object
     }
 
     void Update()
@@ -33,27 +33,19 @@ public class Shotgun : MonoBehaviour
 
     void FireShotgun()
     {
-        // Play audio
-        if (shotgunAudio != null)
-            shotgunAudio.Play();
+        if (shotgunAudio) shotgunAudio.Play();
+        if (cameraShake) cameraShake.Shake();      // uses the defaults set in CameraShake
 
-        // Trigger camera shake
-        if (cameraShake != null)
-            cameraShake.Shake(); // uses inspector values
-
-        // Fire multiple raycasts
+        // fire multiple pellets
         for (int i = 0; i < pelletCount; i++)
         {
-            Vector3 direction = GetSpreadDirection();
-            if (Physics.Raycast(transform.position, direction, out RaycastHit hit, range))
+            Vector3 dir = GetSpreadDirection();
+            if (Physics.Raycast(transform.position, dir, out RaycastHit hit, range))
             {
                 DesignerNPC npc = hit.collider.GetComponent<DesignerNPC>();
-                if (npc != null)
+                if (npc)
                 {
-                    Vector3 hitPoint = hit.point;
-                    SpawnBlood(npc, hitPoint);
-
-                    FindObjectOfType<TypewriterDialogue>()?.HideNow();
+                    SpawnBlood(npc, hit.point);
                     ScoreManager.Instance.RegisterKill(npc.isAlien);
                     Destroy(hit.collider.gameObject);
                 }
@@ -63,19 +55,18 @@ public class Shotgun : MonoBehaviour
 
     Vector3 GetSpreadDirection()
     {
-        Vector3 forward = transform.forward;
-        forward += Random.insideUnitSphere * Mathf.Tan(spreadAngle * Mathf.Deg2Rad);
-        return forward.normalized;
+        Vector3 fwd = transform.forward;
+        fwd += Random.insideUnitSphere * Mathf.Tan(spreadAngle * Mathf.Deg2Rad);
+        return fwd.normalized;
     }
 
-    void SpawnBlood(DesignerNPC npc, Vector3 position)
+    void SpawnBlood(DesignerNPC npc, Vector3 pos)
     {
-        GameObject blood = Instantiate(
+        GameObject fx = Instantiate(
             npc.isAlien ? greenBloodEffect : redBloodEffect,
-            position,
-            Quaternion.identity
-        );
+            pos,
+            Quaternion.identity);
 
-        Destroy(blood, 2f);
+        Destroy(fx, 2f);
     }
 }
