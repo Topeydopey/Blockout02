@@ -1,46 +1,51 @@
 using UnityEngine;
-using System.Linq;
 
 public class NPCSpawner : MonoBehaviour
 {
-    public GameObject npcPrefab;
-    public Transform[] spawnPoints;
-    public int npcCount = 5;
-    [Range(0f, 1f)] public float alienChance = 0.25f; // 0.25 = 25% of NPCs will be aliens
+    [Header("Prefabs to pick from (drop ALL variants here)")]
+    public GameObject[] npcPrefabs;
 
-    void Start()
-    {
-        SpawnNPCs();
-    }
+    [Header("Spawn Points (empty GameObjects in scene)")]
+    public Transform[] spawnPoints;
+
+    public int npcCount = 10;       // total NPCs you want this round
+
+    void Start() => SpawnNPCs();
 
     void SpawnNPCs()
     {
+        if (npcPrefabs.Length == 0 || spawnPoints.Length == 0)
+        {
+            Debug.LogWarning("NPCSpawner: prefabs or spawn points are missing.");
+            return;
+        }
+
         int aliensSpawned = 0;
 
         for (int i = 0; i < npcCount; i++)
         {
-            // Pick a random spawn point
+            /* pick a random spawn point (reuse allowed) */
             Transform spawn = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
-            // Slightly randomize local offset so they don't overlap
+            /* small offset so they don't overlap perfectly */
             Vector3 offset = new Vector3(
                 Random.Range(-1f, 1f),
-                0,
-                Random.Range(-1f, 1f)
-            );
+                0f,
+                Random.Range(-1f, 1f));
 
-            GameObject npc = Instantiate(npcPrefab, spawn.position + offset, Quaternion.identity);
+            /* pick a random prefab variant (human or alien) */
+            GameObject prefab = npcPrefabs[Random.Range(0, npcPrefabs.Length)];
 
-            DesignerNPC npcScript = npc.GetComponent<DesignerNPC>();
-            if (npcScript != null)
-            {
-                npcScript.isAlien = Random.value < alienChance;
-                if (npcScript.isAlien)
-                    aliensSpawned++;
-            }
+            GameObject npc = Instantiate(prefab,
+                                         spawn.position + offset,
+                                         spawn.rotation);
+
+            /* tally aliens for the score system */
+            DesignerNPC d = npc.GetComponent<DesignerNPC>();
+            if (d && d.isAlien) aliensSpawned++;
         }
 
-        // Send real alien count to score system
+        /* inform ScoreManager of the real alien count */
         ScoreManager.Instance.SetTotalAliens(aliensSpawned);
     }
 }

@@ -12,10 +12,11 @@ GameObject:
   - component: {fileID: 3287165734921522884}
   - component: {fileID: 4539487015841088989}
   - component: {fileID: 2173918009649365126}
-  - component: {fileID: 3042443772379352266}
-  - component: {fileID: 710741483891938192}
-  - component: {fileID: 5162563040522120345}
   - component: {fileID: 3782659130455266549}
+  - component: {fileID: 710741483891938192}
+  - component: {fileID: 3042443772379352266}
+  - component: {fileID: 5162563040522120345}
+  - component: {fileID: 8487677970414400867}
   m_Layer: 0
   m_Name: Alien
   m_TagString: NPC
@@ -111,84 +112,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3042443772379352266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3878640917604070667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24335ea936c8d964186e091e607fb8a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isAlien: 1
-  humanResponses:
-  - "The deadline is tomorrow, so naturally I\u2019m rewriting the whole movement
-    system tonight."
-  - "Yeah, the scope\u2019s small, only a brand new mechanic, NPC, and a cinematic
-    ending sequence."
-  - My laptop sounds like a jet engine every time I open Unity.
-  - The team agreed on pixel art, then someone submitted a 3D blender file.
-  - We're using placeholder assets... except they kind of grew on us and now they're
-    final.
-  - We added a crafting system because someone watched a GDC talk and got inspired.
-  - Balancing is hard when no one on the team agrees what the game actually is.
-  - "If a play\u2011tester isn\u2019t confused at least once, I worry the game\u2019s
-    too shallow."
-  - I optimize by deleting code and seeing which error screams loudest.
-  - "Play\u2011test note said \u2018feels floaty\u2019, we rebranded that as a stylistic
-    choice."
-  - "Level art\u2019s done, which is great because the level design\u2026 isn\u2019t."
-  - "I renamed the file \u2018finalFINAL\u2019 four times today; that\u2019s progress."
-  alienResponses:
-  - The core gameplay is walking. And also standing. Very immersive.
-  - We removed the pause button for realism.
-  - Credits roll twice so the player have more time to clap for the developers.
-  - We achieved balance by making every weapon equally bad.
-  - A game should begin and end equally impossible.
-  - The tutorial withholds input until players understands the controls first.
-  - Players relax more once the pause menu whispers encouragement.
-  - "Our game runs great if you never open the options menu, so please don\u2019t."
-  - "We call it \u2018emergent gameplay\u2019 when the AI forgets what gravity is."
---- !u!195 &710741483891938192
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3878640917604070667}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0.2
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1.9999999
-  m_BaseOffset: 0.99999994
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!114 &5162563040522120345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3878640917604070667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48cd05fca4e56a64692e4df341f12a52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wanderRadius: 5
-  waitTime: 2
-  moveCooldown: 5
 --- !u!54 &3782659130455266549
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -216,3 +139,66 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!195 &710741483891938192
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3878640917604070667}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0.2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.9999999
+  m_BaseOffset: 0.99999994
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &3042443772379352266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3878640917604070667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24335ea936c8d964186e091e607fb8a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAlien: 0
+--- !u!114 &5162563040522120345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3878640917604070667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48cd05fca4e56a64692e4df341f12a52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wanderRadius: 5
+  waitTime: 2
+  moveCooldown: 5
+--- !u!114 &8487677970414400867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3878640917604070667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 443d3454d0329d149a919f9f5fe52e6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue: []

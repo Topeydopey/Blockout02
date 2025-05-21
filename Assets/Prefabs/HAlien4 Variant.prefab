@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2791629329783629609
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6301326724075014282, guid: c6060d19c75e3fc4283eeba145cb250c,
+        type: 3}
+      propertyPath: m_Name
+      value: HAlien4 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645377813175767600, guid: c6060d19c75e3fc4283eeba145cb250c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645377813175767600, guid: c6060d19c75e3fc4283eeba145cb250c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645377813175767600, guid: c6060d19c75e3fc4283eeba145cb250c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645377813175767600, guid: c6060d19c75e3fc4283eeba145cb250c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645377813175767600, guid: c6060d19c75e3fc4283eeba145cb250c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645377813175767600, guid: c6060d19c75e3fc4283eeba145cb250c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645377813175767600, guid: c6060d19c75e3fc4283eeba145cb250c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645377813175767600, guid: c6060d19c75e3fc4283eeba145cb250c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645377813175767600, guid: c6060d19c75e3fc4283eeba145cb250c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645377813175767600, guid: c6060d19c75e3fc4283eeba145cb250c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8191185825715499095, guid: c6060d19c75e3fc4283eeba145cb250c,
+        type: 3}
+      propertyPath: isAlien
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8705836934667973076, guid: c6060d19c75e3fc4283eeba145cb250c,
+        type: 3}
+      propertyPath: dialogue.Array.data[0].answer
+      value: Go grab the latest Wacom tablet. You gonna progress faster with the
+        best tools possible!
+      objectReference: {fileID: 0}
+    - target: {fileID: 8705836934667973076, guid: c6060d19c75e3fc4283eeba145cb250c,
+        type: 3}
+      propertyPath: dialogue.Array.data[1].answer
+      value: Block the haters. Your vision is perfect as-is.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8705836934667973076, guid: c6060d19c75e3fc4283eeba145cb250c,
+        type: 3}
+      propertyPath: dialogue.Array.data[2].answer
+      value: You gotta patent your mechanics immediately and sue anyone with a similar
+        idea!
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c6060d19c75e3fc4283eeba145cb250c, type: 3}

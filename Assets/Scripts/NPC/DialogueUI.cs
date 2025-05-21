@@ -13,6 +13,7 @@ public class DialogueUI : MonoBehaviour
     bool inDialogue;
     bool justOpened;                          // key-release guard
     public bool IsOpen => inDialogue;
+    public TextMeshProUGUI closePrompt;
 
     void Update()
     {
@@ -40,6 +41,7 @@ public class DialogueUI : MonoBehaviour
         justOpened = true;
 
         dialoguePanel.SetActive(true);
+        if (closePrompt) closePrompt.gameObject.SetActive(true);   // ← show prompt
         answerBox.text = "";
 
         SetQuestion(q1, npc.dialogue, 0);
@@ -68,7 +70,8 @@ public class DialogueUI : MonoBehaviour
             if (ag) ag.enabled = true;
         }
 
-        dialoguePanel.SetActive(false);   // ← only hide the dialogue, not the canvas
+        dialoguePanel.SetActive(false);
+        if (closePrompt) closePrompt.gameObject.SetActive(false);  // ← hide prompt
         inDialogue = false;
         current = null;
     }
