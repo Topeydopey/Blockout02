@@ -13,6 +13,12 @@ PrefabInstance:
       propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5508521597969197407, guid: c6060d19c75e3fc4283eeba145cb250c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -2426380996913929449, guid: f35b90df45687044c99288702c4ef4a0,
+        type: 3}
     - target: {fileID: 6301326724075014282, guid: c6060d19c75e3fc4283eeba145cb250c,
         type: 3}
       propertyPath: m_Name

@@ -100,6 +100,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: HAlien2 Variant 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8225841142828763593, guid: a35171a1989eb5e4b8eee6563814097a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -8743693471275033034, guid: 2407a5aa55c110d49923d4ed08561fc6,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
