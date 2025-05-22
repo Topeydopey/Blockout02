@@ -148,7 +148,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 3815661390092232411}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.0000001
+  m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48cd05fca4e56a64692e4df341f12a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderRadius: 5
+  wanderRadius: 8
   waitTime: 2
   moveCooldown: 5
 --- !u!114 &4024104566270120317
