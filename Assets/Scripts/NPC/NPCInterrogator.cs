@@ -40,11 +40,18 @@ public class NPCInterrogator : MonoBehaviour
                 {
                     talkPromptText.gameObject.SetActive(false);
 
-                    // Freeze the NPC so it doesn’t wander off
+                    // freeze NPC movement
                     var agent = npc.GetComponent<UnityEngine.AI.NavMeshAgent>();
                     if (agent) agent.enabled = false;
 
-                    // Open the Q&A menu
+                    /* ── add / enable SmoothLookAt ── */
+                    SmoothLookAt look = npc.GetComponent<SmoothLookAt>();
+                    if (!look) look = npc.gameObject.AddComponent<SmoothLookAt>();
+
+                    look.target = playerCamera.transform;  // face the camera
+                    look.rotateSpeed = 5f;                      // or any speed you like
+
+                    // open the Q&A UI
                     dialogueUI.Open(npc.GetComponent<NPCDialogue>());
                 }
 

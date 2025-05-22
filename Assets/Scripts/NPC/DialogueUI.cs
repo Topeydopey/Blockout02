@@ -68,6 +68,10 @@ public class DialogueUI : MonoBehaviour
         {
             var ag = current.GetComponent<UnityEngine.AI.NavMeshAgent>();
             if (ag) ag.enabled = true;
+
+            /* ── clean up the look script ── */
+            var look = current.GetComponent<SmoothLookAt>();
+            if (look) Destroy(look);
         }
 
         dialoguePanel.SetActive(false);
