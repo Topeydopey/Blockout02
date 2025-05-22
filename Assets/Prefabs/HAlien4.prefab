@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48cd05fca4e56a64692e4df341f12a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderRadius: 5
+  wanderRadius: 8
   waitTime: 2
   moveCooldown: 5
 --- !u!114 &8705836934667973076

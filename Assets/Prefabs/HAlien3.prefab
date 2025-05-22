@@ -61,7 +61,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: caa0ac232a285aa4da276112d42d49c1,
         type: 3}
       propertyPath: m_Name
-      value: Model 3
+      value: HAlien3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48cd05fca4e56a64692e4df341f12a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderRadius: 5
+  wanderRadius: 8
   waitTime: 2
   moveCooldown: 5
 --- !u!114 &2216760045865252042
