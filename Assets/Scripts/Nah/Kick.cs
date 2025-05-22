@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+
 public class Kick : MonoBehaviour
 {
     [Header("Kick Settings")]
@@ -10,74 +11,72 @@ public class Kick : MonoBehaviour
     [Header("Optional Effects")]
     public AudioSource kickSound;
     public ParticleSystem kickEffect;
+    public AudioClip bowlingSFX;     // drag your “pins” clip here
 
     void Update()
     {
         if (Input.GetKeyDown(kickKey))
-        {
             AttemptKick();
-        }
     }
+
+    /* ─────────────────────────── helpers (unchanged) ───────────────────────── */
+
     public void EnableRagdoll(DesignerNPC npc)
     {
-        Rigidbody rb = npc.GetComponent<Rigidbody>();
-        UnityEngine.AI.NavMeshAgent agent = npc.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        var rb = npc.GetComponent<Rigidbody>();
+        var agent = npc.GetComponent<UnityEngine.AI.NavMeshAgent>();
 
-        if (agent != null)
-            agent.enabled = false;
-
-        if (rb != null)
+        if (agent) agent.enabled = false;
+        if (rb)
         {
             rb.isKinematic = false;
             rb.useGravity = true;
         }
     }
 
-    public IEnumerator ReenableAgentAfterDelay(UnityEngine.AI.NavMeshAgent agent, float delay)
+    public IEnumerator ReenableAgentAfterDelay(UnityEngine.AI.NavMeshAgent ag, float delay)
     {
         yield return new WaitForSeconds(delay);
-        if (agent != null)
-            agent.enabled = true;
+        if (ag) ag.enabled = true;
     }
+
+    /* ─────────────────────────────── main kick ─────────────────────────────── */
 
     void AttemptKick()
     {
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, kickRange))
         {
             DesignerNPC npc = hit.collider.GetComponent<DesignerNPC>();
-            if (npc != null)
+            if (npc == null) return;
+
+            // ragdoll + shove
+            var rb = npc.GetComponent<Rigidbody>();
+            var agent = npc.GetComponent<UnityEngine.AI.NavMeshAgent>();
+
+            if (agent) agent.enabled = false;
+
+            if (rb)
             {
-                // ─── Ragdoll & force ─────────────────────────────────────────────
-                Rigidbody rb = npc.GetComponent<Rigidbody>();
-                var agent = npc.GetComponent<UnityEngine.AI.NavMeshAgent>();
+                rb.isKinematic = false;
+                rb.useGravity = true;
 
-                if (agent) agent.enabled = false;
+                Vector3 dir = (hit.point - transform.position).normalized;
+                rb.AddForce(dir * kickForce, ForceMode.Impulse);
 
-                if (rb)
-                {
-                    rb.isKinematic = false;
-                    rb.useGravity = true;
+                npc.RecoverAfterDelay(3f);
+            }
 
-                    Vector3 dir = (hit.point - transform.position).normalized;
-                    rb.AddForce(dir * kickForce, ForceMode.Impulse);
+            /* ── add trigger & hand it the SFX clip ─────────────────── */
+            var trig = npc.gameObject.AddComponent<KickImpactTrigger>();
+            trig.bowlingSFX = bowlingSFX;          // << pass the clip
 
-                    npc.RecoverAfterDelay(3f);
-                }
+            /* ── local effects ──────────────────────────────────────── */
+            if (kickSound) kickSound.Play();
 
-                // make knocked NPC knock down others
-                npc.gameObject.AddComponent<KickImpactTrigger>();
-
-                // ───---  EFFECTS  ---─────────────────────────────────────────────
-                // 1. sound
-                if (kickSound) kickSound.Play();
-
-                // 2. particle at impact point
-                if (kickEffect)
-                {
-                    Vector3 spawnPos = hit.point + Vector3.up * 0.20f;   // lift a bit off floor
-                    Instantiate(kickEffect, spawnPos, Quaternion.identity)
-                        .Play();                                         // make sure it starts
-                }
+            if (kickEffect)
+            {
+                Vector3 spawnPos = hit.point + Vector3.up * 0.20f;
+                Instantiate(kickEffect, spawnPos, Quaternion.identity).Play();
             }
         }
     }
