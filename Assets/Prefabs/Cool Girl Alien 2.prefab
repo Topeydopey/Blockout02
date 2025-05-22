@@ -1,0 +1,166 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1260767176283272388
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4829893006034080640, guid: a35171a1989eb5e4b8eee6563814097a,
+        type: 3}
+      propertyPath: dialogue.Array.data[0].answer
+      value: Easy! Just apply to AAA studios asking for 5 years of experience in
+        a junior role.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4829893006034080640, guid: a35171a1989eb5e4b8eee6563814097a,
+        type: 3}
+      propertyPath: dialogue.Array.data[1].answer
+      value: Email them every hour and CC their CEO. Show initiative!
+      objectReference: {fileID: 0}
+    - target: {fileID: 4829893006034080640, guid: a35171a1989eb5e4b8eee6563814097a,
+        type: 3}
+      propertyPath: dialogue.Array.data[2].answer
+      value: "Tell them \u201Cgames are my life\u201D and list all the games you
+        like. That's all you need."
+      objectReference: {fileID: 0}
+    - target: {fileID: 4829893006034080640, guid: a35171a1989eb5e4b8eee6563814097a,
+        type: 3}
+      propertyPath: dialogue.Array.data[0].question
+      value: "I\u2019m about to graduate. How do I land my first game design job?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4829893006034080640, guid: a35171a1989eb5e4b8eee6563814097a,
+        type: 3}
+      propertyPath: dialogue.Array.data[1].question
+      value: My application got ghosted again. What should I do?
+      objectReference: {fileID: 0}
+    - target: {fileID: 4829893006034080640, guid: a35171a1989eb5e4b8eee6563814097a,
+        type: 3}
+      propertyPath: dialogue.Array.data[2].question
+      value: I finally got a job interview. How should I prepare?
+      objectReference: {fileID: 0}
+    - target: {fileID: 5503955057537031181, guid: a35171a1989eb5e4b8eee6563814097a,
+        type: 3}
+      propertyPath: isAlien
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7089547842142204582, guid: a35171a1989eb5e4b8eee6563814097a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7089547842142204582, guid: a35171a1989eb5e4b8eee6563814097a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7089547842142204582, guid: a35171a1989eb5e4b8eee6563814097a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7089547842142204582, guid: a35171a1989eb5e4b8eee6563814097a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7089547842142204582, guid: a35171a1989eb5e4b8eee6563814097a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7089547842142204582, guid: a35171a1989eb5e4b8eee6563814097a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7089547842142204582, guid: a35171a1989eb5e4b8eee6563814097a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7089547842142204582, guid: a35171a1989eb5e4b8eee6563814097a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7089547842142204582, guid: a35171a1989eb5e4b8eee6563814097a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7089547842142204582, guid: a35171a1989eb5e4b8eee6563814097a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7577573141383587868, guid: a35171a1989eb5e4b8eee6563814097a,
+        type: 3}
+      propertyPath: m_Name
+      value: Cool Girl Alien 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8225841142828763593, guid: a35171a1989eb5e4b8eee6563814097a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -8743693471275033034, guid: 2407a5aa55c110d49923d4ed08561fc6,
+        type: 3}
+    m_RemovedComponents:
+    - {fileID: 8225841142828763593, guid: a35171a1989eb5e4b8eee6563814097a, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7577573141383587868, guid: a35171a1989eb5e4b8eee6563814097a,
+        type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 2769974403745825428}
+  m_SourcePrefab: {fileID: 100100000, guid: a35171a1989eb5e4b8eee6563814097a, type: 3}
+--- !u!1 &8671636616460344536 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7577573141383587868, guid: a35171a1989eb5e4b8eee6563814097a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1260767176283272388}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2769974403745825428
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8671636616460344536}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 3572152407248665119, guid: 7f8acd3b5034ddb41bbd46fcfef834e5, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}

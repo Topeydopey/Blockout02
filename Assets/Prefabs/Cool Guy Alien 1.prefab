@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &815771468633489150
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3815661390092232411, guid: 0d26b7014675a724eb9d82702a8ad47e,
+        type: 3}
+      propertyPath: m_Name
+      value: HAlien1 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4024104566270120317, guid: 0d26b7014675a724eb9d82702a8ad47e,
+        type: 3}
+      propertyPath: dialogue.Array.data[0].answer
+      value: Oh, Godot for sure!
+      objectReference: {fileID: 0}
+    - target: {fileID: 4024104566270120317, guid: 0d26b7014675a724eb9d82702a8ad47e,
+        type: 3}
+      propertyPath: dialogue.Array.data[1].answer
+      value: Go crazy with it! If you like MOBA or competitive shooter, jump right
+        in!
+      objectReference: {fileID: 0}
+    - target: {fileID: 4024104566270120317, guid: 0d26b7014675a724eb9d82702a8ad47e,
+        type: 3}
+      propertyPath: dialogue.Array.data[2].answer
+      value: What do you mean? Blender is not quick enough?
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591458843928476769, guid: 0d26b7014675a724eb9d82702a8ad47e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591458843928476769, guid: 0d26b7014675a724eb9d82702a8ad47e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591458843928476769, guid: 0d26b7014675a724eb9d82702a8ad47e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591458843928476769, guid: 0d26b7014675a724eb9d82702a8ad47e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591458843928476769, guid: 0d26b7014675a724eb9d82702a8ad47e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591458843928476769, guid: 0d26b7014675a724eb9d82702a8ad47e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591458843928476769, guid: 0d26b7014675a724eb9d82702a8ad47e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591458843928476769, guid: 0d26b7014675a724eb9d82702a8ad47e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591458843928476769, guid: 0d26b7014675a724eb9d82702a8ad47e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4591458843928476769, guid: 0d26b7014675a724eb9d82702a8ad47e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5827278518050681038, guid: 0d26b7014675a724eb9d82702a8ad47e,
+        type: 3}
+      propertyPath: isAlien
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0d26b7014675a724eb9d82702a8ad47e, type: 3}
