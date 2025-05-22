@@ -45,6 +45,11 @@ public class Shotgun : MonoBehaviour
                 DesignerNPC npc = hit.collider.GetComponent<DesignerNPC>();
                 if (npc)
                 {
+                    /* ─── fade dialogue away if it’s open ─── */
+                    DialogueUI dlg = FindObjectOfType<DialogueUI>();
+                    if (dlg && dlg.IsOpen)
+                        dlg.CloseWithFade(0.3f);      // 0.3-second fade
+                    /* ─────────────────────────────────────── */
                     SpawnBlood(npc, hit.point);
                     ScoreManager.Instance.RegisterKill(npc.isAlien);
                     Destroy(hit.collider.gameObject);
