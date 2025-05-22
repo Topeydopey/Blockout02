@@ -237,6 +237,7 @@ MonoBehaviour:
   - question: My objects keep falling through the floor. What do I do?
     answer: Increase gravity. The faster it falls, the harder it hits!
   - question: 'My application got ghosted again. What should I do? '
-    answer: Email them every hour and CC their CEO. Show initiative!
+    answer: Email them every hour, CC their CEO, and ask them to join your high level
+      tycoon. Show initiative!
   - question: Is it okay to hardcode values in my script?
     answer: Absolutely. Who needs scriptable objects or serialized fields?
