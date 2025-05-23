@@ -2,19 +2,23 @@ using UnityEngine;
 
 public class EndGameController : MonoBehaviour
 {
-    public GameObject shipLightsParent;     // drag “ShipLights”
-    public CanvasGroup basementObjective;   // UI text/arrow
+    public GameObject shipLightsParent;
+    public CanvasGroup basementObjective;
+
+    [Header("HUD")]
+    public GameObject scoreHUD;          // drag the Score Text or its parent
+
     public float fadeTime = 1f;
 
-    /* called from ScoreManager event */
     public void BeginAct2()
     {
+        if (scoreHUD) scoreHUD.SetActive(false);  // ← hide the counter
+
+        if (shipLightsParent) shipLightsParent.SetActive(false);
+
         basementObjective.alpha = 0;
         basementObjective.gameObject.SetActive(true);
         StartCoroutine(FadeInObjective());
-
-        // black-out
-        if (shipLightsParent) shipLightsParent.SetActive(false);
     }
 
     System.Collections.IEnumerator FadeInObjective()
