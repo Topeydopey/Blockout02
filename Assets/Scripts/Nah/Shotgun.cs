@@ -17,10 +17,7 @@ public class Shotgun : MonoBehaviour
 
     float lastFireTime;
 
-    void Start()
-    {
-        cameraShake = GetComponent<CameraShake>();   // assumes CameraShake is on the same object
-    }
+    void Start() => cameraShake = GetComponent<CameraShake>();
 
     void Update()
     {
@@ -34,26 +31,32 @@ public class Shotgun : MonoBehaviour
     void FireShotgun()
     {
         if (shotgunAudio) shotgunAudio.Play();
-        if (cameraShake) cameraShake.Shake();      // uses the defaults set in CameraShake
+        if (cameraShake) cameraShake.Shake();
 
-        // fire multiple pellets
         for (int i = 0; i < pelletCount; i++)
         {
             Vector3 dir = GetSpreadDirection();
-            if (Physics.Raycast(transform.position, dir, out RaycastHit hit, range))
+            if (!Physics.Raycast(transform.position, dir, out RaycastHit hit, range))
+                continue;
+
+            /* ---------- boss hit check ---------- */
+            BossAlienController boss = hit.collider.GetComponentInParent<BossAlienController>();
+            if (boss)
             {
-                DesignerNPC npc = hit.collider.GetComponent<DesignerNPC>();
-                if (npc)
-                {
-                    /* ─── fade dialogue away if it’s open ─── */
-                    DialogueUI dlg = FindObjectOfType<DialogueUI>();
-                    if (dlg && dlg.IsOpen)
-                        dlg.CloseWithFade(0.3f);      // 0.3-second fade
-                    /* ─────────────────────────────────────── */
-                    SpawnBlood(npc, hit.point);
-                    ScoreManager.Instance.RegisterKill(npc.isAlien);
-                    Destroy(hit.collider.gameObject);
-                }
+                boss.TakeHit();                 // registers damage + handles death
+                continue;                       // skip NPC logic
+            }
+            /* ---------- regular NPC logic ------ */
+            DesignerNPC npc = hit.collider.GetComponent<DesignerNPC>();
+            if (npc)
+            {
+                // fade dialogue if open
+                DialogueUI dlg = FindObjectOfType<DialogueUI>();
+                if (dlg && dlg.IsOpen) dlg.CloseWithFade(0.3f);
+
+                SpawnBlood(npc, hit.point);
+                ScoreManager.Instance.RegisterKill(npc.isAlien);
+                Destroy(hit.collider.gameObject);
             }
         }
     }

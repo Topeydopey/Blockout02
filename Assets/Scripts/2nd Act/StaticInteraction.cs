@@ -1,21 +1,24 @@
 using UnityEngine;
+using UnityEngine.Events;
 using TMPro;
 using System.Collections;
 
 public class StaticInteraction : MonoBehaviour
 {
-    [Header("Dialogue Lines (one per press)")]
-    [TextArea] public string[] lines;      // fill in Inspector
+    [Header("Dialogue Lines")]
+    [TextArea] public string[] lines;
 
-    public TextMeshProUGUI promptText;     // “Press E”
-    public TextMeshProUGUI dialogueText;   // centre-HUD text
-    public float fadeAfter = 3f;           // seconds each line stays
+    public TextMeshProUGUI promptText;
+    public TextMeshProUGUI dialogueText;
+    public float fadeAfter = 3f;
+
+    [Header("Events")]
+    public UnityEvent onFirstInteract;        //  ← NEW
 
     bool playerInside;
-    int currentIndex;                     // next line to show
-    Coroutine fadeCR;                      // so lines don’t overlap
-
-    /* ───────────── trigger sensing ───────────── */
+    int currentIndex;
+    bool firstDone;
+    Coroutine fadeCR;
 
     void OnTriggerEnter(Collider col)
     {
@@ -35,27 +38,28 @@ public class StaticInteraction : MonoBehaviour
         }
     }
 
-    /* ───────────── per-frame input ───────────── */
-
     void Update()
     {
         if (playerInside && Input.GetKeyDown(KeyCode.E))
             ShowNextLine();
     }
 
-    /* ───────────── dialogue logic ───────────── */
-
     void ShowNextLine()
     {
         if (lines == null || lines.Length == 0) return;
 
-        // stop any running fade so text updates instantly
+        if (!firstDone)
+        {
+            firstDone = true;
+            onFirstInteract?.Invoke();        //  ← fire once
+        }
+
         if (fadeCR != null) StopCoroutine(fadeCR);
 
         dialogueText.text = lines[currentIndex];
         dialogueText.gameObject.SetActive(true);
 
-        currentIndex = (currentIndex + 1) % lines.Length;   // loop
+        currentIndex = (currentIndex + 1) % lines.Length;
 
         fadeCR = StartCoroutine(FadeAfterDelay());
     }
